@@ -8,3 +8,7 @@ This code demonstrates a bug in my code (I believe) that I need to fix.
 3. Drag the table.
 
 When you drag, the keyboard will disappear, and you'll see double grid lines. The grid lines are what I'm trying to figure out.
+
+![Double Grid Lines][1]
+
+[1]: ExtraGridLines.png
