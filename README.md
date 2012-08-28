@@ -11,4 +11,4 @@ When you drag, the keyboard will disappear, and you'll see double grid lines. Th
 
 ![Double Grid Lines][1]
 
-[1]: ExtraGridLines.png
+[1]: https://raw.github.com/tewha/ExtraGridLines/master/ExtraGridLines.png  
