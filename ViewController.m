@@ -92,6 +92,7 @@ static NSString *RowsKey = @"Rows";
     [self updateSearchResults];
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -103,11 +104,6 @@ static NSString *RowsKey = @"Rows";
     self.tableView.tableHeaderView = _searchBar;
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
