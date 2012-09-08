@@ -10,7 +10,8 @@
 static NSString *TitleKey = @"Title";
 static NSString *RowsKey = @"Rows";
 
-@interface ViewController ()<UISearchBarDelegate> {
+@interface ViewController ()<UISearchDisplayDelegate> {
+    // Since we're using a search controller, we implement the UISearchDisplayDelegate protocol instead.
     NSString *_searchText;
     NSArray *_allData;
     NSArray *_matchingData;
@@ -45,18 +46,16 @@ static NSString *RowsKey = @"Rows";
         }
         _matchingData = sections;
     }
-    [self.tableView reloadData];
+    // we don't call reloadData on the table anymore, since we're now called from searchDisplayController:shouldReloadTableForSearchString which shouldn't do so.
 }
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    _searchText = nil;
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    // respond to searchDisplayController:shouldReloadTableForSearchString instead of searchBar:textDidChange:
+    _searchText = searchString;
     [self updateSearchResults];
-}
-
-
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    _searchText = searchText;
-    [self updateSearchResults];
+    
+    // return YES to signal the table should be reloaded
+    return YES;
 }
 
 
@@ -90,6 +89,8 @@ static NSString *RowsKey = @"Rows";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [self updateSearchResults];
+    // since updateSearchResults no longer recalls reloadData on the table, we must
+    [self.tableView reloadData];
 }
 
 
