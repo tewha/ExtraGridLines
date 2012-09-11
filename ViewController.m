@@ -10,7 +10,7 @@
 static NSString *TitleKey = @"Title";
 static NSString *RowsKey = @"Rows";
 
-@interface ViewController ()<UISearchBarDelegate> {
+@interface ViewController ()<UISearchDisplayDelegate> {
     NSString *_searchText;
     NSArray *_allData;
     NSArray *_matchingData;
@@ -45,18 +45,20 @@ static NSString *RowsKey = @"Rows";
         }
         _matchingData = sections;
     }
+}
+
+
+- (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller {
+    _searchText = nil;
+    [self updateSearchResults];
     [self.tableView reloadData];
 }
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    _searchText = nil;
-    [self updateSearchResults];
-}
 
-
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    _searchText = searchText;
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    _searchText = searchString;
     [self updateSearchResults];
+    return YES;
 }
 
 
@@ -90,6 +92,7 @@ static NSString *RowsKey = @"Rows";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [self updateSearchResults];
+    [self.tableView reloadData];
 }
 
 
